@@ -1,0 +1,15 @@
+Variables de session :
+    Variables mises en session après authentification (AuthentifForm.java)
+        lePompierConnecte : pompier authentifié
+        lePompier : pompier à afficher dans pompierJSP
+        lesGrades : collection des grades possibles (
+        lesPeriodes : collections des périodes d'affectation possibles (nuit, matin, ...)
+        lesStatuts : collection des statuts (pompier, chef de centre, resp. alertes)
+        lesTypes : collection des types (pompier volontaires, perso médical, perso adm.)
+        lesPompiers : collection des pompiers de la caserne, reseignée uniquement si le pompier connecté est un chef de centre
+    Variables mises en session dans PompierServlet.java)
+        lePompier : pompier à afficher dans pompierJSP
+
+Attributs utilisés entre la servet PompierServlet.java et pompierJSP :   
+    page :  2 --> affichage des données du pompier connecté
+            3 --> affichage des données d'un pompier de la caserne pour le chef de centre
