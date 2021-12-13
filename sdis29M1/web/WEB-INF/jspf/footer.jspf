@@ -1,0 +1,5 @@
+<%-- jspf/footer.jspf --%>
+<%@ page pageEncoding="UTF-8" %>
+<footer>
+    <p>SDIS 29 - 58, avenue de Keradennec - 29337 QUIMPER CEDEX - 02 98 10 31 50</p>
+</footer>

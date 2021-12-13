@@ -1,0 +1,114 @@
+<%-- jspf/header.jspf --%>
+<%@ page pageEncoding="UTF-8" %>
+<c:set var="blancs8" value="          " scope="page" />
+<header>
+    <div class="container" id="entete">
+
+        <img id="logo" src="images/logo-sdis.png" alt='logo sdis29' />
+        <div id="identite">
+            <div id="login">
+                <c:choose>
+                    <c:when test="${empty sessionScope.lePompierConnecte}">
+                        <h4>Bienvenue</h4>
+                    </c:when>  
+                    <c:otherwise>
+                        <h4>Bienvenue   ${sessionScope.lePompierConnecte.getPrenom()} 
+                            ${sessionScope.lePompierConnecte.getNom()} (
+                            ${sessionScope.lePompierConnecte.getLeStatut().getValeur()})
+                        </h4>
+
+                        <button type="button" class="btn btn-warning fs-4" title="Déconnexion">
+                            <a href="authentification">
+                                <i class="bi bi-box-arrow-right heading" width="32" height="32" fill="currentColor"></i> Déconnexion
+                            </a>
+                        </button>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <h4>Service Départemental d'Incendie et de Secours du Finistère</h4>
+
+            <div id="caserne" title="Adresse caserne">             
+                ${sessionScope.lePompierConnecte.getLaCaserne().getNom()} 
+                ${sessionScope.lePompierConnecte.getLaCaserne().getAdresse()}<br />
+                ${sessionScope.lePompierConnecte.getLaCaserne().getTel()}<br />
+            </div>
+            <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
+                <div class="container-fluid">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <span class="nav-link"><pre>${blancs8}</pre> </span>
+                        </li>
+                        <li class="nav-item">
+                            <c:choose>
+                                <c:when test="${page eq 1}">
+                                    <a  class="nav-link active" href="authentification">Authentification</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a  class="nav-link" href="authentification">Authentification</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
+                        <li class="nav-item">
+                            <c:choose>
+                                <c:when test="${page eq 2}">
+                                    <a class="nav-link active" href="pompier?pageDemandee=2">Mes Données</a>
+                                </c:when>
+                                <c:when test="${empty lePompierConnecte}">
+                                    <a class="nav-link disabled" href="#">Mes Données</a>
+                                </c:when>                                       
+                                <c:otherwise>
+                                   <a class="nav-link" href="pompier?pageDemandee=2">Mes Données</a>
+                                </c:otherwise>
+                            </c:choose>                            
+                        </li>
+                        <li class="nav-item">   
+                            <c:choose>                                
+                                <c:when test="${page eq 3}">                                     
+                                    <a class="nav-link active" href="pompier?pageDemandee=3">Les Pompiers</a>
+                                </c:when>
+                                <c:when test="${sessionScope.lePompierConnecte.getLeStatut().getCode() eq 2}">
+                                    <a class="nav-link" href="pompier?pageDemandee=3">Les pompiers</a>
+                                </c:when>                                       
+                                <c:otherwise>
+                                   
+                                </c:otherwise>
+                               
+                            </c:choose>                            
+                         </li>
+                        <li class="nav-item">
+                            <c:choose>                                
+                                <c:when test="${page eq 4}">                                     
+                                    <a class="nav-link active" href="#">Les Paramètres</a>
+                                </c:when>
+                                <c:when test="${sessionScope.lePompierConnecte.getLeStatut().getCode() eq 2}">
+                                    <a class="nav-link" href="#">Les paramètres</a>
+                                </c:when>                                       
+                                <c:otherwise>
+                                   
+                                </c:otherwise>
+                               
+                            </c:choose>                            
+                        </li>
+
+                      <li class="nav-item">
+                             <c:choose>                                
+                                <c:when test="${sessionScope.lePompierConnecte.getLeStatut().getCode() eq 2}">                                     
+                                    <a class="nav-link active" href="#">Les gardes</a>
+                                </c:when>
+                                    
+                                <c:when test="${sessionScope.lePompierConnecte.getLeType().getCode() eq 2}">
+                                    <a class="nav-link" href="#">Mes disponibilités</a>
+                                </c:when>                                       
+                                <c:otherwise>
+                                   
+                                </c:otherwise>
+                               
+                            </c:choose>                   
+                      </li> 
+                    </ul>
+
+                </div>    
+            </nav>
+        </div> <!-- fin id=identie -->
+    </div> <!-- fin class=container -->
+</header>

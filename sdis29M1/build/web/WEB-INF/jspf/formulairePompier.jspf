@@ -1,0 +1,144 @@
+<%@ page pageEncoding="UTF-8" %>
+<form action="pompier" method="POST" class="formPompier"> <!-- enctype="multipart/form-data" -->
+    <div class="row">
+        <aside class="col-md-3 text-center"> 
+            <img src="images/pompier.png" alt="portrait">
+        </aside>
+
+        <section class="col-md-8">
+            <div class="row">        
+                <div class="col-md-6">
+                    <label for="ztNom">Nom *</label>
+                    <input type="text" class="form-control" id="ztNom" name="ztNom" 
+                           placeholder="Nom" value="${lePompier.getNom()}" required />
+                </div>
+                <div class="col-md-6">
+                    <label for="ztPrenom">Prenom *</label>
+                    <input type="text" class="form-control" id="ztPrenom" name="ztPrenom" 
+                           placeholder="Prénom" value="${lePompier.getPrenom()}" required />
+                </div>
+            </div><!-- fin ligne nom prenom -->
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label for="ztRue">Adresse *</label>
+                    <input type="text" class="form-control" id="ztRue" name="ztAdresse" 
+                           placeholder="Adresse" value="${lePompier.getAdresse()}" required="" />
+                </div>
+                <div class="col-md-2">
+                    <label for="ztCP">Code postal *</label>
+                    <input type="text" class="form-control" id="ztCP" name="ztCP" pattern="^(([0-8][0-9])|(9[0-5])|(2[ab]))[0-9]{3}$"  
+                           placeholder="Code postal" value="${lePompier.getCp()}" required />          
+                </div>
+                <div class="col-md-4">
+                    <label for="zlVille">Ville *</label>
+                    <!-- <input type="text" class="form-control" id="zlVille" name = "zlVille" 
+                           placeholder="Ville" value="${lePompier.getVille()}" required /> comment -->
+
+                    <select class="form-select" aria-label="Default select example" id="zlVille" name = "zlVille" required>                    
+                        <option value="${lePompier.getVille()}">${lePompier.getVille()}</option>                    
+                    </select>
+                </div>
+            </div><!-- fin ligne adresse -->
+
+            <div class="row mt-3">  
+                <div class="col-md-6">
+                    <label for="ztMail">Adresse électronique *</label>
+                    <input type="email" class="form-control" id="ztMail" name="ztMail" 
+                           placeholder="Email" value="${lePompier.getMail()}" required />            
+                </div>
+                <div class="text-danger col-md-6" id="msgCP" ></div>
+            </div><!-- fin ligne mail -->    
+            <div class="row mt-3">    
+                <div class="col-md-6">
+                    <label for="ztLogin">Login *</label>
+                    <input type="text" class="form-control" id="ztLogin" name="ztLogin" 
+                           placeholder="Login" value="${lePompier.getLogin()}" required />
+                </div>
+                <div class="col-md-6">
+                    <label for="ztMdp">Mot de passe *</label>
+                    <input type="password" class="form-control" id="ztMdp" name="ztMdp" value="12345"
+                           placeholder="Mot de passe"  required />
+                </div>
+            </div><!-- fin ligne login mot de passe -->
+            <div class="row refPhoto mt-3">
+                <div class="col-md-12">
+                    <label for="photo" class="custom-file">Changer la photo</label>
+                    <input type="file" class="form-control" id="photo" name="photo" accept=".png, .jpg, .jpeg" />     
+                </div>
+            </div> <!-- fin ligne photo -->
+
+            <div class="row mt-3">                         
+                <div class="col-md-2">
+                    <c:set var="readO" value="" scope="page" />
+                    <c:if test="${sessionScope.lePompierConnecte.getLeStatut().getCode() ne 2  || 
+                                  sessionScope.lePompierConnecte.getId() == lePompier.getId()}" var="testChef" scope="page">
+                        <c:set var="readO" value="readonly" scope="page" />
+                    </c:if>
+                    <label for="ztBip">No bip *</label>
+                    <input type="number" ${readO} class="form-control" id="ztBip" 
+                           name="ztBip" placeholder="No bip" value="${lePompier.getBip()}" required  min="1" />
+                </div>
+                <div class="col-md-4">
+                    <label for="ldrGrade">Grade *</label>                    
+                    <select ${readO} class="form-control" id="ldrGrade" name="ldrGrade">
+                        <c:forEach items="${sessionScope.lesGrades}" var="unGrade" >
+                            <c:set var="select" value="" scope="page" />
+                            <c:if test="${lePompier.getLeGrade().getCode() eq unGrade.getCode()}" var="testGrade" scope="page">
+                                <c:set var="select" value="selected" scope="page" />
+                            </c:if>
+                            <option ${select} value="${unGrade.getCode()}">${unGrade.getValeur()}</option>;
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="ldrStatut">Statut *</label>                    
+                    <select ${readO} class="form-control" id="ldrStatut" name="ldrStatut">
+                        <c:forEach items="${sessionScope.lesStatuts}" var="unStatut" >
+                            <c:set var="select" value="" scope="page" />
+                            <c:if test="${lePompier.getLeStatut().getCode() eq unStatut.getCode()}" var="testStatut" scope="page">
+                                <c:set var="select" value="selected" scope="page" />
+                            </c:if>
+                            <option ${select} value="${unStatut.getCode()}">${unStatut.getValeur()}</option>;
+
+                        </c:forEach>
+                    </select>
+                </div> 
+                <div class="col-md-3">
+                    <label for="ldrType">Type personnel *</label>                    
+                    <select ${readO} class="form-control" id="ldrType" name="ldrType">
+                        <c:forEach items="${sessionScope.lesTypes}" var="unType" >
+                            <c:set var="select" value="" scope="page" />
+                            <c:if test="${lePompier.getLeType().getCode() eq unType.getCode()}" var="testStatut" scope="page">
+                                <c:set var="select" value="selected" scope="page" />
+                            </c:if>
+                            <option ${select} value="${unType.getCode()}">${unType.getValeur()}</option>;
+
+                        </c:forEach>
+                    </select>
+                </div> 
+            </div><!-- fin ligne bip grade statut type-->
+
+            <div class="row mt-3"> 
+                <div class="col-md-12">
+                    <label for="ztObs">Observations</label>
+                    <input type="text" class="form-control" id="ztObs" name="ztObs" 
+                           value="${lePompier.getCommentaire()}" />                
+                </div><!-- fin ligne observation -->
+            </div> <!-- fin observation -->
+
+            <div class="danger mt-3">${message} </div> 
+
+            <div class="text-center mt-3">
+                <button type="submit" name="btAfficherPompier" value="ValiderMaj" class="btn btn-danger">
+                    <i class="bi bi-check2"></i> Valider
+                </button>                                    
+            </div>
+            
+            <p><em>* zone obligatoire</em></p>
+            
+        </section>
+    </div> <!-- fin div contenant aside et section -->
+</form>
+
+

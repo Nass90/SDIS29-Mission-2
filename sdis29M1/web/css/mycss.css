@@ -1,0 +1,86 @@
+/* 
+    css/mycss.css
+*/
+
+body {
+    background-color: #ECECEC;   
+}
+#contenuAffiche {
+    display: flex;
+    justify-content:center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+ }       
+#authentif {
+     width : 50%;
+}
+fieldset {
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #DB0005;
+    width: 100%;
+}
+legend {
+    margin-bottom:0px;
+    padding-bottom: 0px;
+}
+footer {
+    margin-top: 10px;
+    background-color: #EDEDED;
+    text-align: center;
+    font-size: smaller;
+    padding: 10px;
+    /*border-bottom: 3px solid #DB0005; */
+}
+header {
+    background-color: #333333;
+    color: #EDEDED;  
+    padding: 10px;
+    
+}
+#entete {   
+    display: flex;
+    /* align-items: center; */
+    align-items: flex-end ;
+}
+
+li {    
+    text-align: center;   
+}
+li:not(:first-child) {    
+   border-left: 2px solid #EDEDED; 
+}
+#identite {
+     width : 100%;
+}
+.navbar {
+    padding: 0 0 0 0;
+    border-radius: 5px;
+    margin-left: -8%;   
+}
+#logo {
+    z-index:1; /* arriere plan */
+}
+#login {
+    background-color: #EDEDED;    
+    color: #333333;   
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    margin-left: -8%;   
+}
+
+button a {
+    text-decoration:none;
+    color: #333333;     
+}
+aside, #btAfficherPompier {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+select[readonly] {
+  pointer-events: none; 
+}
